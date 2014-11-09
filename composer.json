@@ -1,0 +1,19 @@
+{
+    "name": "xtremcreative/panda-orm",
+    "description": "The Panda framework - ORM support",
+    "type": "library",
+    "require": {
+      "php": ">=5.3.3",
+      "xtremcreative/panda-core": "dev-master"
+    },
+    "require-dev": {
+        "doctrine/orm": "2.4.6",
+        "vlucas/spot2": "~2.0"
+    },
+    "authors": [
+        {"name": "Stanislas Michalak", "email": "stanislas.michalak@gmail.com"}
+    ],
+    "autoload": {
+        "psr-0": { "Panda\\ORM": "lib/" }
+    }
+}
