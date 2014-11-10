@@ -7,13 +7,16 @@ use Panda\Core\Component\Config\ConfigManager;
 use Spot\Config;
 use Spot\Locator;
 
-class AbstractSpotBaseDao extends AbstractBasicDao
+class AbstractSpotBaseDao extends AbstractBasicDao implements ORMDao
 {
     protected static $config;
     protected static $locator;
 
     public function __construct()
     {
+        if (!class_exists('Spot\Config') || !class_exists('Spot\Locator')) {
+            throw new \RuntimeException('Unable to use Spot-based DAO: missing "vlucas/spot2" dependency.');
+        }
         if (self::$config === null) {
             self::$config = new Config();
         }
