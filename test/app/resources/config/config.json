@@ -4,7 +4,7 @@
         "list": {
             "test": {
                 "driver": "pdo_sqlite",
-                "path": "./app/resources/data/test.db"
+                "path": "../app/resources/data/test.db"
             }
         }
     }
