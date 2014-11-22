@@ -1,0 +1,11 @@
+{
+    "datasources": {
+        "default": "test",
+        "list": {
+            "test": {
+                "driver": "pdo_sqlite",
+                "path": "./app/resources/data/test.db"
+            }
+        }
+    }
+}

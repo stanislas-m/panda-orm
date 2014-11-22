@@ -1,14 +1,12 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: stan
- * Date: 10/11/14
- * Time: 19:47
- */
 
 namespace Panda\ORM;
 
 interface ORMDao
 {
-    public function getEntityManager($entityManagerName);
+    public function getEntityManager($datasourceName);
+
+    public function newEntity($entityName, array $args);
+
+    public function editEntity(Entity $entity, array $args = array());
 } 

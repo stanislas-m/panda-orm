@@ -20,7 +20,7 @@
                foreach ($v_queryResults as $r) : ?>
                 <tr>
                     <td><?php echo $r['id']; ?></td>
-                    <td><?php echo $r['name']; ?></td>
+                    <td><?php echo $r['label']; ?></td>
                 </tr>
             <?php endforeach;
                else : ?>
