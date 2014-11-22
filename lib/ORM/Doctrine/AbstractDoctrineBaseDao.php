@@ -45,8 +45,8 @@ class AbstractDoctrineBaseDao extends AbstractBasicDao implements ORMDao
             $entityManagerConfig = Setup::createConfiguration(ConfigManager::exists('datasources.debug') ? ConfigManager::get('datasources.debug') : false);
 
             //Load annotations stuff
-            AnnotationRegistry::registerFile(dirname(dirname(dirname(__DIR__))) .
-                '/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
+            AnnotationRegistry::registerFile(VENDORS_DIR .
+                'doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
             $cache = new $cacheClass();
             $annotationReader = new AnnotationReader();
             $cachedAnnotationReader = new CachedReader(
