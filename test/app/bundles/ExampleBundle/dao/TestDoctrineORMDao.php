@@ -1,6 +1,6 @@
 <?php
 
-namespace PandaTest\ExampleBundle;
+namespace PandaTest\ExampleBundle\dao;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Panda\ORM\Doctrine\AbstractDoctrineBaseDao;

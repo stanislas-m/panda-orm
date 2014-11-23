@@ -101,14 +101,16 @@ class AbstractDoctrineBaseDao extends AbstractBasicDao implements ORMDao
     public function getRepository($entityName, $datasourceName = null)
     {
         $reflClass = new ReflectionClass($this);
-        $bundleName = str_replace(APP_NAMESPACE . '\\', '', $reflClass->getNamespaceName());
+        $namespaceRaw = substr($reflClass->getNamespaceName(), 0, -4);
+        $bundleName = substr($namespaceRaw, strpos($namespaceRaw, '\\') + 1);
+        $namespace = substr($namespaceRaw, 0, -strlen($bundleName) - 1);
         $em = $this->getEntityManager($datasourceName);
 
         if (!class_exists($entityName)) {
-            if (class_exists(APP_NAMESPACE . '\\' . $entityName)) {
-                $entityName = APP_NAMESPACE . '\\' . $entityName;
-            } else if (class_exists(APP_NAMESPACE . '\\' . $bundleName . '\\entity\\' . $entityName)) {
-                $entityName = APP_NAMESPACE . '\\' . $bundleName . '\\entity\\' . $entityName;
+            if (class_exists($namespace. '\\' . $entityName)) {
+                $entityName = $namespace. '\\' . $entityName;
+            } else if (class_exists($namespace . '\\' . $bundleName . '\\entity\\' . $entityName)) {
+                $entityName = $namespace . '\\' . $bundleName . '\\entity\\' . $entityName;
             }
         }
 
@@ -123,15 +125,17 @@ class AbstractDoctrineBaseDao extends AbstractBasicDao implements ORMDao
     public function newEntity($entityName, array $args = array())
     {
         $reflClass = new ReflectionClass($this);
-        $bundleName = str_replace(APP_NAMESPACE . '\\', '', $reflClass->getNamespaceName());
+        $namespaceRaw = substr($reflClass->getNamespaceName(), 0, -4);
+        $bundleName = substr($namespaceRaw, strpos($namespaceRaw, '\\') + 1);
+        $namespace = substr($namespaceRaw, 0, -strlen($bundleName) - 1);
 
         if (class_exists($entityName)) {
             $entity = new $entityName();
-        } else if (class_exists(APP_NAMESPACE . '\\' . $entityName)) {
-            $className = APP_NAMESPACE . '\\' . $entityName;
+        } else if (class_exists($namespace . '\\' . $entityName)) {
+            $className = $namespace . '\\' . $entityName;
             $entity = new $className();
-        } else if (class_exists(APP_NAMESPACE . '\\' . $bundleName . '\\entity\\' . $entityName)) {
-            $className = APP_NAMESPACE . '\\' . $bundleName . '\\entity\\' . $entityName;
+        } else if (class_exists($namespace . '\\' . $bundleName . '\\entity\\' . $entityName)) {
+            $className = $namespace . '\\' . $bundleName . '\\entity\\' . $entityName;
             $entity = new $className();
         }
 
