@@ -39,10 +39,13 @@ class AbstractDoctrineBaseDao extends AbstractBasicDao implements ORMDao
         }
 
         if (!array_key_exists($datasourceName, self::$connections)) {
+
+            $isDebug = ConfigManager::exists('datasources.debug') ? ConfigManager::get('datasources.debug') : false;
+
             $cacheName = ConfigManager::get('datasources.list.' . $datasourceName . '.cache');
             $cacheClass = '\Doctrine\Common\Cache\\' . (!empty($cacheName) ? $cacheName : 'ArrayCache');
 
-            $entityManagerConfig = Setup::createConfiguration(ConfigManager::exists('datasources.debug') ? ConfigManager::get('datasources.debug') : false);
+            $entityManagerConfig = Setup::createConfiguration($isDebug);
 
             //Load annotations stuff
             AnnotationRegistry::registerFile(VENDORS_DIR .
@@ -51,7 +54,8 @@ class AbstractDoctrineBaseDao extends AbstractBasicDao implements ORMDao
             $annotationReader = new AnnotationReader();
             $cachedAnnotationReader = new CachedReader(
                 $annotationReader,
-                $cache
+                $cache,
+                $isDebug
             );
 
             //Load event manager
